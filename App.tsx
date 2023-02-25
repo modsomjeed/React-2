@@ -3,36 +3,23 @@ import './style.css';
 // import Input from './Input';
 
 export default function App() {
-  const [state, setState] = React.useState({ firstName: '', lastName: '' });
-  const onSubmit = (event) => {
-    event.preventDefault();
-    console.log(`${state.firstName} : ${state.lastName}`);
-  };
+  const [value, setValue] = React.useState('');
+  const [count, setCount] = React.useState(0);
 
-  const onChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setState((prevState) => ({ ...prevState, [name]: value }));
-  };
+  React.useEffect(() => {
+    console.log('value: ', value);
+    setCount(value.length);
+  });
   return (
-    <React.Fragment>
-      <div>test</div>
-      <form onSubmit={onSubmit}>
-        <input
-          name="firstName"
-          value={state.firstName}
-          onChange={onChange}
-          required
-        />
-        <input
-          name="lastName"
-          value={state.lastName}
-          onChange={onChange}
-          required
-        />
-        checkbox radio select
-        <button type="submit">Submit</button>
-      </form>
-    </React.Fragment>
+    <div>
+      <div>Value: {value}</div>
+      <div>Count: {count}</div>
+      <input
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+      />
+    </div>
   );
 }
