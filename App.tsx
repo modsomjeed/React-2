@@ -10,6 +10,7 @@ export default function App() {
     console.log('value: ', value);
     setCount(value.length);
   });
+
   return (
     <div>
       <div>Value: {value}</div>
