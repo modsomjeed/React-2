@@ -3,21 +3,18 @@ import './style.css';
 
 export default function App() {
   const [input, setInput] = React.useState(0);
-  const [resultmod2, setResult2] = React.useState('');
-  const [resultmod10, setResult10] = React.useState('');
+  const [mod2, setMod2] = React.useState(false);
+  const [mod10, setMod10] = React.useState(false);
 
   React.useEffect(() => {
-    if (input % 2 == 0) {
-      setResult2('odd');
-    } else {
-      setResult2('event');
-    }
-    if (input % 10 == 0) {
-      setResult10('true');
-    } else {
-      setResult10('false');
-    }
-  });
+    setMod2(input % 2 === 0);
+    setMod10(input % 10 === 0);
+  }, [input]);
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setInput(event.target.input.value);
+  };
 
   return (
     <React.Fragment>
@@ -26,19 +23,13 @@ export default function App() {
           input: <b>{input}</b>
         </div>
         <div>
-          even or odd: <b>{resultmod2}</b>
+          even or odd: <b>{input && mod2 ? 'odd' : 'even'}</b>
         </div>
         <div>
-          Divisible by 10 : <b>{resultmod10}</b>
+          Divisible by 10 : <b>{mod10.toString()}</b>
         </div>
-        <form>
-          <input
-            type="number"
-            onChange={(event) => {
-              setInput(Number(event.target.value));
-            }}
-            required
-          />
+        <form onSubmit={onSubmit}>
+          <input type="number" name="input" required />
           <input type="submit" />
         </form>
       </div>
